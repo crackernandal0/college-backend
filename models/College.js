@@ -17,6 +17,17 @@ const collegeSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  website: {
+    type: String,
+    trim: true,
+    validate: {
+      validator: function(v) {
+        if (!v) return true; // Allow empty website
+        return /^https?:\/\/.+/.test(v);
+      },
+      message: 'Website must be a valid URL starting with http:// or https://'
+    }
+  },
   status: {
     type: String,
     default: 'active'
